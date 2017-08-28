@@ -1,12 +1,14 @@
 apply plugin: 'java'
 apply plugin: 'eclipse'
+apply plugin: 'war'
 
-sourceCompatibility = 1.5
+sourceCompatibility = 1.8
 version = '1.0'
 jar {
     manifest {
-        attributes 'Implementation-Title': 'Gradle Quickstart',
-                   'Implementation-Version': version
+        attributes	'Title': 'My Spring MVC',
+        			'provider':'yangyang',
+                  	'Version': version
     }
 }
 
@@ -14,9 +16,20 @@ repositories {
     mavenCentral()
 }
 
+ext {
+    springVersion='4.3.10.RELEASE'
+}
+
 dependencies {
-    compile group: 'commons-collections', name: 'commons-collections', version: '3.2'
-    testCompile group: 'junit', name: 'junit', version: '4.+'
+
+	compile (
+			//Spring∫À–ƒ“¿¿µ
+			[group: 'org.springframework', name: 'spring-context', version: springVersion],
+			
+			//spring web
+			[group: 'org.springframework', name: 'spring-webmvc', version: springVersion]
+            
+    )
 }
 
 test {
