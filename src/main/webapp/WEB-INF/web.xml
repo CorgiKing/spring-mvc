@@ -24,7 +24,7 @@
 			<param-name>contextConfigLocation</param-name>
 			<param-value>classpath:spring-context.xml</param-value>
 		</init-param>
-		Springmvc模式是关闭OPTIONS请求的，所以需要开启
+		<!-- Springmvc模式是关闭OPTIONS请求的，所以需要开启 -->
 		<init-param>
 			<param-name>dispatchOptionsRequest</param-name>
 			<param-value>true</param-value>
@@ -35,5 +35,11 @@
 	<servlet-mapping>
 		<servlet-name>DispatcherServlet</servlet-name>
 		<url-pattern>/</url-pattern>
+		<!-- 
+		<url-pattern></url-pattern>:当上下文的根被请求的时候，它将被调用
+		<url-pattern>/</url-pattern>:会匹配到/springmvc这样的路径型url，不会匹配到模式为*.jsp这样的后缀型url。
+		<url-pattern>/*</url-pattern>:会匹配所有的url：路径型的和后缀型的url(包括/springmvc，.jsp，.js和*.html等)。
+		  -->
 	</servlet-mapping>
+	
 </web-app>
