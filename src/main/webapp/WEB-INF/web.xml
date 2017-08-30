@@ -17,6 +17,19 @@
 		<welcome-file>default.jsp</welcome-file>
 	</welcome-file-list>
 
+	<!-- 加载配置文件 -->
+	<context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>classpath:spring-context.xml</param-value>
+    </context-param>
+    
+    <!-- 监听器 -->
+ 	<!-- 可以进行上线,下线判断 -->
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener
+        </listener-class>
+    </listener>
+
 	<servlet>
 		<servlet-name>DispatcherServlet</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
@@ -31,15 +44,27 @@
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
-
 	<servlet-mapping>
 		<servlet-name>DispatcherServlet</servlet-name>
 		<url-pattern>/</url-pattern>
-		<!-- 
-		<url-pattern></url-pattern>:当上下文的根被请求的时候，它将被调用
-		<url-pattern>/</url-pattern>:会匹配到/springmvc这样的路径型url，不会匹配到模式为*.jsp这样的后缀型url。
-		<url-pattern>/*</url-pattern>:会匹配所有的url：路径型的和后缀型的url(包括/springmvc，.jsp，.js和*.html等)。
-		  -->
+		<!-- <url-pattern></url-pattern>:当上下文的根被请求的时候，它将被调用 -->
+		<!-- <url-pattern>/</url-pattern>:会匹配到/springmvc这样的路径型url，不会匹配到模式为*.jsp这样的后缀型url。 -->
+		<!-- <url-pattern>/*</url-pattern>:会匹配所有的url：路径型的和后缀型的url(包括/springmvc，.jsp，.js和*.html等)。 -->
 	</servlet-mapping>
 	
+	<!-- 防止中文乱码 -->
+	<filter>
+        <filter-name>characterEncodingFilter</filter-name>
+        <filter-class>org.springframework.web.filter.CharacterEncodingFilter
+        </filter-class>
+        <init-param>
+            <param-name>encoding</param-name>
+            <param-value>UTF-8</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>characterEncodingFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
 </web-app>

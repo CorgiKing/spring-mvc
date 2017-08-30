@@ -9,6 +9,9 @@
         http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
 	<context:component-scan base-package="com.yy" />
+	
+	<!-- controller返回一个map的json对象 -->
+	<!-- DefaultAnnotationHandlerMapping和AnnotationMethodHandlerAdapter -->
 	<mvc:annotation-driven />
 
 	<!-- 可直接通过uri访问 -->
