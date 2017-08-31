@@ -2,9 +2,23 @@ apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'war'
 
-sourceCompatibility = 1.8
+tasks.withType(JavaCompile) {
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+    options.encoding = 'utf-8'
+}
 version = '1.0'
+
+war {
+    baseName = "spring-mvc"
+    manifest {
+        attributes	'Title': 'My Spring MVC',
+        			'provider':'yangyang',
+                  	'Version': version
+    }
+}
 jar {
+    baseName = "spring-mvc"
     manifest {
         attributes	'Title': 'My Spring MVC',
         			'provider':'yangyang',
@@ -25,30 +39,51 @@ dependencies {
 	testCompile group: 'junit', name: 'junit', version: '4.+'
 	
 	compile (
-			//Spring∫À–ƒ“¿¿µ
+			[group: 'com.google.guava', name: 'guava', version: '23.0'],
+			[group: 'commons-configuration', name: 'commons-configuration', version: '1.10'],
+			[group: 'log4j', name: 'log4j', version: '1.2.17'],
+	
+			//Spring Ê†∏ÂøÉÂåÖ
 			[group: 'org.springframework', name: 'spring-context', version: springVersion],
 			
 			//spring web
 			[group: 'org.springframework', name: 'spring-webmvc', version: springVersion],
+			
+			//Spring DAOÂ±Ç
+			[group: 'org.springframework', name: 'spring-jdbc', version: springVersion],
+			[group: 'org.springframework', name: 'spring-tx', version: springVersion],
 			
 			//mysql
 			[group: 'mysql', name: 'mysql-connector-java', version: "5.1.43"],
 			
 			//mybatis
             [group: 'org.mybatis', name: 'mybatis-spring', version: '1.3.1'],
-            [group: 'org.mybatis', name: 'mybatis', version: '3.4.4']
+            [group: 'org.mybatis', name: 'mybatis', version: '3.4.4'],
+            
+            //Êï∞ÊçÆÂ∫ìËøûÊé•Ê±†
+            //[group: 'com.alibaba', name: 'druid', version: '1.1.2'],
+            [group: 'com.mchange', name: 'c3p0', version: '0.9.5.2']
             
     )
 }
+
+ext {
+    environment = System.getProperty("env")
+
+    if (environment == null) {
+    	environment = "develop"
+    }
+}
+//gradle clean war -Denv=dev
 
 test {
     systemProperties 'property': 'value'
 }
 
-uploadArchives {
-    repositories {
-       flatDir {
-           dirs 'repos'
-       }
+sourceSets {
+    main {
+        resources {
+            srcDirs = ["src/main/resources", "src/main/environment/$environment"]
+        }
     }
 }

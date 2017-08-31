@@ -1,0 +1,66 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans.xsd 
+	http://www.springframework.org/schema/util 
+	http://www.springframework.org/schema/util/spring-util.xsd 
+	http://www.springframework.org/schema/tx 
+	http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+	<!-- 引入配置文件 -->  
+    <bean id="propertyConfigurer"  
+        class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">  
+        <property name="location" value="classpath:dbconfig.properties" />  
+    </bean> 
+
+	<bean id="basicInfoDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+		destroy-method="close">
+		<property name="driverClass" value="${db.driver}" />
+		<property name="jdbcUrl"
+			value="${basic_info.url}" />
+		<property name="user"
+			value="${basic_info.username}" />
+		<property name="password"
+			value="${basic_info.password}" />
+
+		<property name="minPoolSize" value="3" />
+		<property name="maxPoolSize" value="20" />
+		<property name="acquireIncrement" value="1" />
+
+		<property name="testConnectionOnCheckin" value="true" />
+		<property name="maxIdleTimeExcessConnections" value="240" />
+		<property name="idleConnectionTestPeriod" value="300" />
+	</bean>
+
+	<!-- 配置sqlSessionFactory -->
+	<bean id="basicInfoSqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="configLocation" value="classpath:mybatis-config.xml"></property>
+		<!-- 实例化sqlSessionFactory时需要使用上述配置好的数据源以及SQL映射文件 -->
+		<property name="mapperLocations" value="classpath:com/yy/dao/basicinfo/mapper/*.xml" />
+		<property name="dataSource" ref="basicInfoDataSource" />
+
+	</bean>
+	<!-- 配置扫描器 -->
+	<bean name="basicInfoMapperScannerConfigurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<!-- 扫描com.cnwisdom.dao.cloudros这个包以及它的子包下的所有映射接口类 -->
+		<property name="basePackage" value="com.yy.dao.basicinfo" />
+		<property name="sqlSessionFactoryBeanName" value="basicInfoSqlSessionFactory" />
+	</bean>
+
+	<!-- 配置Spring的事务管理器 -->
+	<bean id="basicInfoTransactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="basicInfoDataSource" />
+	</bean>
+
+	<!-- 注解方式配置事物 -->
+	<tx:annotation-driven transaction-manager="basicInfoTransactionManager" />
+
+
+	<bean id="basicInfoTransactionTemplate"
+		class="org.springframework.transaction.support.TransactionTemplate">
+		<property name="transactionManager" ref="basicInfoTransactionManager" />
+	</bean>
+
+</beans>

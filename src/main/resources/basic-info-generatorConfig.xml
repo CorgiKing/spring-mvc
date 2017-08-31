@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+	<classPathEntry
+		location="C:\Users\SONGJC\.gradle\caches\modules-2\files-2.1\mysql\mysql-connector-java\5.1.35\b6ac941b7288376a7e8bc6490264bbd4427fb94e\mysql-connector-java-5.1.35.jar" />
+	<context id="context1">
+
+		<!-- 需写前面 -->
+		<commentGenerator>
+			<!-- 是否去除自动生成的注释 true：是 ： false:否 -->
+			<property name="suppressAllComments" value="true" />
+			<property name="suppressDate" value="true" />
+		</commentGenerator>
+		
+		<jdbcConnection connectionURL="jdbc:mysql://localhost:3306/basic_info"
+			driverClass="com.mysql.jdbc.Driver" userId="yy" password="123456" />
+
+		<!-- entity位置 -->
+		<javaModelGenerator targetPackage="com.yy.dao.basicinfo.entity"
+			targetProject="spring-mvc/src/main/java" />
+
+		<!-- mapper对应xml位置 -->
+		<sqlMapGenerator targetPackage="com.yy.dao.basicinfo.mapper"
+			targetProject="spring-mvc/src/main/resources" />
+
+		<!-- mapper位置 -->
+		<javaClientGenerator targetPackage="com.yy.dao.basicinfo.mapper"
+			targetProject="spring-mvc/src/main/java" type="XMLMAPPER" />
+
+		<table schema="basic_info" tableName="user">
+			<generatedKey column="id" sqlStatement="MySql" identity="true" />
+		</table>
+
+	</context>
+</generatorConfiguration>

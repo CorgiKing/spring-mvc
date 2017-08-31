@@ -8,19 +8,10 @@
 	<display-name>spring-mvc</display-name>
 	<description>对spring-mvc的进一步分析</description>
 
-	<welcome-file-list>
-		<welcome-file>index.html</welcome-file>
-		<welcome-file>index.htm</welcome-file>
-		<welcome-file>index.jsp</welcome-file>
-		<welcome-file>default.html</welcome-file>
-		<welcome-file>default.htm</welcome-file>
-		<welcome-file>default.jsp</welcome-file>
-	</welcome-file-list>
-
 	<!-- 加载配置文件 -->
 	<context-param>
         <param-name>contextConfigLocation</param-name>
-        <param-value>classpath:spring-context.xml</param-value>
+        <param-value>classpath:context.xml</param-value>
     </context-param>
     
     <!-- 监听器 -->
