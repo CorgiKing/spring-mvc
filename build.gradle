@@ -62,7 +62,12 @@ dependencies {
             
             //数据库连接池
             //[group: 'com.alibaba', name: 'druid', version: '1.1.2'],
-            [group: 'com.mchange', name: 'c3p0', version: '0.9.5.2']
+            [group: 'com.mchange', name: 'c3p0', version: '0.9.5.2'],
+            
+            //jackson,返回对象转json
+            [group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.0'],
+            [group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: '2.9.0'],
+            [group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.9.0']
             
     )
 }
