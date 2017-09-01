@@ -6,11 +6,15 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.yy.dao.basicinfo.entity.User;
 import com.yy.dao.basicinfo.mapper.UserDao;
+import com.yy.exception.CustomException;
+import com.yy.exception.ErrorCode;
 
 @Service
+@Transactional(transactionManager="basicInfoTransactionManager")
 public class UserService {
 	private Logger log = Logger.getLogger(getClass());
 	
@@ -30,11 +34,11 @@ public class UserService {
 
 	public boolean addUser(User user) {
 		int ret = userDao.insert(user);
-		if (ret == 1) {
-			log.info(MessageFormat.format("用户信息插入成功:{0}", user));
-			return true;
+		if (ret != 1) {
+			throw new CustomException(ErrorCode.INSER_ERROR	, "用户信息保存失败");
 		}
-		return false;
+		log.info(MessageFormat.format("用户信息插入成功:{0}", user));
+		return true;
 	}
 
 	public List<User> getUserList(Integer offset, Integer count) {

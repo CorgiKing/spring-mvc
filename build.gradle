@@ -39,8 +39,10 @@ dependencies {
 	testCompile group: 'junit', name: 'junit', version: '4.+'
 	
 	compile (
-			[group: 'com.google.guava', name: 'guava', version: '23.0'],
+			//[group: 'com.google.guava', name: 'guava', version: '23.0'],
+			//ConfigUtil中使用
 			[group: 'commons-configuration', name: 'commons-configuration', version: '1.10'],
+			//日志
 			[group: 'log4j', name: 'log4j', version: '1.2.17'],
 	
 			//Spring 核心包
@@ -71,7 +73,12 @@ dependencies {
             
             //swagger
             [group: 'io.springfox', name: 'springfox-swagger2', version: '2.7.0'],
-            [group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.7.0']
+            [group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.7.0'],
+            
+            //统一异常处理时用到HttpServletRequest,HttpServletResponse
+            [group: 'javax.servlet', name: 'javax.servlet-api', version: '3.1.0'],
+            //ObjectToJsonUtil中使用
+            [group: 'com.google.code.gson', name: 'gson', version: '2.8.1'],
             
     )
 }

@@ -1,4 +1,4 @@
-package com.yy.api.requset;
+package com.yy.api.requset_object;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
