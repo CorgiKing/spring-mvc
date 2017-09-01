@@ -26,11 +26,13 @@ public class ExceptionResolver implements HandlerExceptionResolver {
 	public ModelAndView resolveException(HttpServletRequest request, HttpServletResponse response, Object handler,
 			Exception exception) {
 		ModelAndView mv = new ModelAndView();
+		
 		/* 使用response返回 */
 		response.setStatus(HttpStatus.OK.value()); // 设置状态码
 		response.setContentType(MediaType.APPLICATION_JSON_VALUE); // 设置ContentType
 		response.setCharacterEncoding("UTF-8"); // 避免乱码
 		response.setHeader("Cache-Control", "no-cache, must-revalidate");
+		
 		if (exception instanceof BaseException) {
 			BaseException baseException = (BaseException) exception;
 			try {
