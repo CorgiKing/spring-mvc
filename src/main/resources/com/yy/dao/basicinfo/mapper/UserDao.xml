@@ -10,7 +10,7 @@
 		account_id = #{account_id}
 	</select>
 
-	<resultMap id="BaseResultMap" type="com.yy.dao.basicinfo.entity.User">
+	<resultMap id="user" type="com.yy.dao.basicinfo.entity.User">
 		<id column="id" jdbcType="INTEGER" property="id" />
 		<result column="name" jdbcType="VARCHAR" property="name" />
 		<result column="sex" jdbcType="INTEGER" property="sex" />
@@ -20,11 +20,18 @@
 		<result column="user_name" jdbcType="VARCHAR" property="userName" />
 		<result column="password" jdbcType="VARCHAR" property="password" />
 	</resultMap>
-	<select id="selectUserInfo" resultMap="BaseResultMap">
+	<select id="selectUserInfo" resultMap="user">
 		select
 		*
 		from user
 		where
 		account_id = #{account_id}
+	</select>
+	
+	<select id="select" resultMap="user">
+		select
+		*
+		from user
+		limit #{from_index},#{to_index}
 	</select>
 </mapper>

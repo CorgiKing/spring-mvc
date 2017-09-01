@@ -67,7 +67,11 @@ dependencies {
             //jackson,返回对象转json
             [group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.0'],
             [group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: '2.9.0'],
-            [group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.9.0']
+            [group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.9.0'],
+            
+            //swagger
+            [group: 'io.springfox', name: 'springfox-swagger2', version: '2.7.0'],
+            [group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.7.0']
             
     )
 }
