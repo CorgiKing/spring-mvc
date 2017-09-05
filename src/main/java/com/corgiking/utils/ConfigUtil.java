@@ -15,7 +15,7 @@ public class ConfigUtil {
     private static final String CONFIG_FILE_PATH_PROPERTY = "config_file";
 
     private static final Logger LOG = Logger.getLogger(ConfigUtil.class);
-    private static Configuration configuration = loadConfiguration("env_config.properties","base_config.properties");
+    private static Configuration configuration = loadConfiguration("dbconfig.properties","base_config.properties");
 
     private ConfigUtil() {
     }
@@ -41,7 +41,7 @@ public class ConfigUtil {
                 File file = new File(configFilePath);
                 if (file.exists()) {
                     PropertiesConfiguration fileConfig = new PropertiesConfiguration(file.getAbsolutePath());
-                    fileConfig.setReloadingStrategy(new FileChangedReloadingStrategy());
+                    fileConfig.setReloadingStrategy(new FileChangedReloadingStrategy());//设置文件改变重新加载
                     compositeConfiguration.addConfiguration(fileConfig);
                 }
             }
