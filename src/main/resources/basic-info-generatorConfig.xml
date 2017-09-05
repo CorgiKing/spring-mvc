@@ -13,18 +13,18 @@
 		</commentGenerator>
 		
 		<jdbcConnection connectionURL="jdbc:mysql://localhost:3306/basic_info"
-			driverClass="com.mysql.jdbc.Driver" userId="yy" password="123456" />
+			driverClass="com.mysql.jdbc.Driver" userId="corgiking" password="123456" />
 
 		<!-- entity位置 -->
-		<javaModelGenerator targetPackage="com.yy.dao.basicinfo.entity"
+		<javaModelGenerator targetPackage="com.corgiking.dao.basicinfo.entity"
 			targetProject="spring-mvc/src/main/java" />
 
 		<!-- mapper对应xml位置 -->
-		<sqlMapGenerator targetPackage="com.yy.dao.basicinfo.mapper"
+		<sqlMapGenerator targetPackage="com.corgiking.dao.basicinfo.mapper"
 			targetProject="spring-mvc/src/main/resources" />
 
 		<!-- mapper位置 -->
-		<javaClientGenerator targetPackage="com.yy.dao.basicinfo.mapper"
+		<javaClientGenerator targetPackage="com.corgiking.dao.basicinfo.mapper"
 			targetProject="spring-mvc/src/main/java" type="XMLMAPPER" />
 
 		<table schema="basic_info" tableName="user">

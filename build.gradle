@@ -13,7 +13,7 @@ war {
     baseName = "spring-mvc"
     manifest {
         attributes	'Title': 'My Spring MVC',
-        			'provider':'yangyang',
+        			'provider':'Corgi King',
                   	'Version': version
     }
 }
@@ -21,7 +21,7 @@ jar {
     baseName = "spring-mvc"
     manifest {
         attributes	'Title': 'My Spring MVC',
-        			'provider':'yangyang',
+        			'provider':'Corgi King',
                   	'Version': version
     }
 }

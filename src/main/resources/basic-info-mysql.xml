@@ -37,14 +37,14 @@
 	<bean id="basicInfoSqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="configLocation" value="classpath:mybatis-config.xml"></property>
 		<!-- 实例化sqlSessionFactory时需要使用上述配置好的数据源以及SQL映射文件 -->
-		<property name="mapperLocations" value="classpath:com/yy/dao/basicinfo/mapper/*.xml" />
+		<property name="mapperLocations" value="classpath:com/corgiking/dao/basicinfo/mapper/*.xml" />
 		<property name="dataSource" ref="basicInfoDataSource" />
 
 	</bean>
 	<!-- 配置扫描器 -->
 	<bean name="basicInfoMapperScannerConfigurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
 		<!-- 扫描com.cnwisdom.dao.cloudros这个包以及它的子包下的所有映射接口类 -->
-		<property name="basePackage" value="com.yy.dao.basicinfo" />
+		<property name="basePackage" value="com.corgiking.dao.basicinfo" />
 		<property name="sqlSessionFactoryBeanName" value="basicInfoSqlSessionFactory" />
 	</bean>
 

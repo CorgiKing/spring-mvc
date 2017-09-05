@@ -9,17 +9,18 @@
 	<description>对spring-mvc的进一步分析</description>
 	
 	<!-- 加载配置文件 -->
-	<context-param>
+	<!-- <context-param>
         <param-name>contextConfigLocation</param-name>
         <param-value>classpath:context.xml</param-value>
-    </context-param>
+    </context-param> -->
     
     <!-- 监听器 -->
  	<!-- 可以进行上线,下线判断 -->
-    <listener>
+ 	<!-- 和DispatcherServlet分别实例化bean,导致所有bean实例化两次 -->
+    <!-- <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener
         </listener-class>
-    </listener>
+    </listener> -->
 
 	<servlet>
 		<servlet-name>DispatcherServlet</servlet-name>
