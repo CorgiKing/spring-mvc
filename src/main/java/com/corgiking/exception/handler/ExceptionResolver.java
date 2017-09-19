@@ -34,27 +34,32 @@ public class ExceptionResolver implements HandlerExceptionResolver {
 		response.setHeader("Cache-Control", "no-cache, must-revalidate");
 		
 		if (exception instanceof BaseException) {
+			
 			BaseException baseException = (BaseException) exception;
+			
 			try {
 				Map<String, Object> map = new HashMap<String, Object>();
 				map.put("message", baseException.getMessage());
 				map.put("errorcode", baseException.getErrorCode().getCode());
 				log.info(MessageFormat.format("返回前端参数:{0}", ObjectToJsonUtil.ToJson(map)));
+				
 				response.getWriter().write(ObjectToJsonUtil.ToJson(map));
 			} catch (IOException e) {
 				log.error(MessageFormat.format("与客户端通讯异常:{0}", e.getMessage()), e);
 			}
 			log.debug(MessageFormat.format("异常:{0}" + baseException.getMessage(), baseException));
 		} else {
-			try {
-				Map<String, Object> map = new HashMap<String, Object>();
-				map.put("message", exception.getClass().toString());
-				map.put("errorcode", "500");
-				response.getWriter().write(ObjectToJsonUtil.ToJson(map));
-				log.info(MessageFormat.format("返回前端参数:{0}", ObjectToJsonUtil.ToJson(map)));
-			} catch (IOException e) {
-				log.error(MessageFormat.format("与客户端通讯异常:{0}", e.getMessage()), e);
-			}
+			// try {
+			// Map<String, Object> map = new HashMap<String, Object>();
+			// map.put("message", exception.getClass().toString());
+			// map.put("errorcode", "500");
+			// response.getWriter().write(ObjectToJsonUtil.ToJson(map));
+			// log.info(MessageFormat.format("返回前端参数:{0}",
+			// ObjectToJsonUtil.ToJson(map)));
+			// } catch (IOException e) {
+			// log.error(MessageFormat.format("与客户端通讯异常:{0}", e.getMessage()),
+			// e);
+			// }
 			log.debug(MessageFormat.format("异常:{0}" + exception.getMessage(), exception));
 		}
 		return mv;

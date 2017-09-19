@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.corgiking.api.requset_object.UserInfo;
 import com.corgiking.dao.basicinfo.entity.User;
 import com.corgiking.service.UserService;
 
@@ -45,9 +46,9 @@ public class UserInfoApi {
 	}
 	
 	@GetMapping("/{account_id}")
-	public User getUserInfo(@PathVariable Long account_id){
-		User user = userService.getUserInfo(account_id);
-		return user;
+	public UserInfo getUserInfo(@PathVariable Long account_id){
+		UserInfo userInfo = userService.getUserInfo(account_id);
+		return userInfo;
 	}
 	
 	@PostMapping

@@ -44,6 +44,15 @@
 		<!-- <url-pattern>/*</url-pattern>:会匹配所有的url：路径型的和后缀型的url(包括/springmvc，.jsp，.js和*.html等)。 -->
 	</servlet-mapping>
 	
+	<filter>
+		<filter-name>CORSFilter</filter-name>
+		<filter-class>com.corgiking.filter.InitCORSFilter</filter-class>
+	</filter>
+    <filter-mapping>
+		<filter-name>CORSFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	
 	<!-- 防止中文乱码 -->
 	<!-- 多次尝试,没有效果 -->
 	<!-- <filter>
