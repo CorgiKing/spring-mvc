@@ -11,10 +11,11 @@ public enum ErrorCode {
     UNAUTHORIZED_ACCESS(6),//无权访问
     TOKEN_MISS(7),
     WORK_DEAL_ERROR(8),//找不到该工单号
+    MD5_ENCRYPTION_ERROR(10), //MD5加密出错
     REQUEST_TYPE_ERROR(405),
     NOT_FOUND(404),
+    BAD_REQUEST(500),    
     ACCOUNT_IDENTITY_MISSING(7002), 
-    MD5_ENCRYPTION_ERROR(10), //MD5加密出错
     //token过期
     TOKEN_EXPIRED(7003),
     //该账号在其他地方登录
