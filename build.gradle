@@ -93,7 +93,7 @@ ext {
     environment = System.getProperty("env")
 
     if (environment == null) {
-    	environment = "develop"
+    	environment = "dev"
     }
 }
 //gradle clean war -Denv=dev
