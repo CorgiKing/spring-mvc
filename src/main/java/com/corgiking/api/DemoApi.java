@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.corgiking.aop.PerformInterfac;
 import com.corgiking.exception.CustomException;
 import com.corgiking.exception.ErrorCode;
+import com.corgiking.service.PerformService;
 import com.corgiking.service.DemoService;
 import com.corgiking.service.FileService;
 
@@ -28,10 +30,10 @@ import io.swagger.annotations.ApiParam;
 public class DemoApi {
 	
 	@Autowired
-	private DemoService demoService;
+	private FileService fileService;
 	
 	@Autowired
-	private FileService fileService;
+	private PerformInterfac performService;
 	
 	@GetMapping("/exception")
 	public void testException(){
@@ -56,5 +58,11 @@ public class DemoApi {
 			@ApiParam(allowableValues = "video,photo", required = true) @RequestParam String file_type){
 		List<String> fileNameList = fileService.saveFile(file_type, request);
 		return fileNameList;
+	}
+	
+	@GetMapping("/aop")
+	public String aop(){
+		System.out.println("aop");
+		return performService.perform();
 	}
 }

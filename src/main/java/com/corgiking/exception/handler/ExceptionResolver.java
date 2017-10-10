@@ -61,6 +61,7 @@ public class ExceptionResolver implements HandlerExceptionResolver {
 			// e);
 			// }
 			log.debug(MessageFormat.format("异常:{0}" + exception.getMessage(), exception));
+			exception.printStackTrace();
 		}
 		return mv;
 	}
