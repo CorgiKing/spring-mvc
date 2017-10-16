@@ -2,7 +2,12 @@ package com.corgiking.api.requset_object;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-
+/**
+ * @ApiModel 表明这是一个被swagger框架管理的model，用于class上
+ * @ApiModelProperty 这里顾名思义，就是标注在被标注了
+ * @ApiModel的class的属性上，这里的value是对字段的描述，example是取值例子，注意这里的example很有用，对于前后端开发工程师理解文档起到了关键的作用，因为会在api文档页面上显示出这些取值来；这个注解还有一些字段取值，可以自己研究，举例说一个：position，表明字段在model中的顺序
+ * @ApiOperation标注在具体请求上，value和notes的作用差不多，都是对请求进行说明；tags则是对请求进行分类的，比如你有好几个controller，分别属于不同的功能模块，那这里我们就可以使用tags来区分了，看上去很有条理
+ */
 @ApiModel(description="用户基本信息")
 public class UserInfo {
 	@ApiModelProperty(example="姓名")
