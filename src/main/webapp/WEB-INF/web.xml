@@ -27,7 +27,7 @@
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
 		<init-param>
 			<param-name>contextConfigLocation</param-name>
-			<param-value>classpath:context.xml</param-value>
+			<param-value>classpath:dispatcher-servlet.xml</param-value>
 		</init-param>
 		<!-- Springmvc模式是关闭OPTIONS请求的，所以需要开启 -->
 		<init-param>

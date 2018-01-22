@@ -11,7 +11,7 @@
 	<!-- 引入配置文件 -->  
     <bean id="propertyConfigurer"  
         class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">  
-        <property name="location" value="classpath:dbconfig.properties" />  
+        <property name="location" value="classpath:base_config.properties" />  
     </bean> 
 
 	<bean id="basicInfoDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
