@@ -1,0 +1,73 @@
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://www.springframework.org/schema/beans"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
+	<!-- 重发机制 -->
+	<bean id="activeMQRedeliveryPolicy" class="org.apache.activemq.RedeliveryPolicy">
+		<!--是否在每次尝试重新发送失败后,增长这个等待时间 -->
+		<property name="useExponentialBackOff" value="true"></property>
+		<!--重发次数,默认为6次 这里设置为3次 -->
+		<property name="maximumRedeliveries"
+			value="#{T(com.corgiking.utils.ConfigUtil).getProperty('activemq.maxretry')}"></property>
+		<!--重发时间间隔,默认为1秒 -->
+		<property name="initialRedeliveryDelay" value="1000"></property>
+		<!--第一次失败后重新发送之前等待500毫秒,第二次失败再等待500 * 2毫秒,这里的2就是value -->
+		<property name="backOffMultiplier" value="2"></property>
+		<!--最大传送延迟，只在useExponentialBackOff为true时有效（V5.5），假设首次重连间隔为10ms，倍数为2，那么第 
+			二次重连时间间隔为 20ms，第三次重连时间间隔为40ms，当重连时间间隔大的最大重连时间间隔时，以后每次重连时间间隔都为最大重连时间间隔。 -->
+		<property name="maximumRedeliveryDelay" value="1000"></property>
+	</bean>
+
+	<!-- 连接工厂 -->
+	<bean id="amqConnectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory">
+		<property name="brokerURL"
+			value="#{T(com.corgiking.utils.ConfigUtil).getProperty('activemq.url')}" />
+		<property name="userName"
+			value="#{T(com.corgiking.utils.ConfigUtil).getProperty('jms.mq.username')}" />
+		<property name="password"
+			value="#{T(com.corgiking.utils.ConfigUtil).getProperty('jms.mq.password')}" />
+		<property name="redeliveryPolicy" ref="activeMQRedeliveryPolicy" />
+		<property name="trustedPackages">
+			<list>
+				<value>com.wehere.ott</value>
+			</list>
+		</property>
+	</bean>
+
+	<!--配置activemq的联接池 对联接进行池化操作 -->
+	<bean id="pooledConnectionFactory" class="org.apache.activemq.pool.PooledConnectionFactory">
+		<property name="connectionFactory" ref="amqConnectionFactory" />
+		<!-- 最大联接数 -->
+		<property name="maxConnections"
+			value="#{T(com.corgiking.utils.ConfigUtil).getProperty('activemq.maxconnection')}" />
+	</bean>
+
+	<!--配置spring的联接工厂,这个联接工厂将缓存session，生产者和消费者 -->
+	<bean id="cachingConnectionFactory"
+		class="org.springframework.jms.connection.CachingConnectionFactory">
+		<constructor-arg ref="pooledConnectionFactory" />
+		<property name="sessionCacheSize"
+			value="#{T(com.corgiking.utils.ConfigUtil).getProperty('activemq.maxsession')}" />
+	</bean>
+
+	<!-- Spring 同步 JMS Template -->
+	<bean id="jmsTemplate" class="org.springframework.jms.core.JmsTemplate">
+		<property name="connectionFactory" ref="cachingConnectionFactory" />
+	</bean>
+
+	<bean id="accessLogQueue" class="org.apache.activemq.command.ActiveMQQueue">
+		<constructor-arg>
+			<value>Queue_name</value>
+		</constructor-arg>
+	</bean>
+
+	<bean id="consumerSessionAwareMessageListener" class="com.corgiking.listener.MsgQueueListener"></bean>
+
+	<bean id="sessionAwareListenerContainer"
+		class="org.springframework.jms.listener.DefaultMessageListenerContainer">
+		<property name="connectionFactory" ref="cachingConnectionFactory" />
+		<property name="destination" ref="accessLogQueue" />
+		<property name="messageListener" ref="consumerSessionAwareMessageListener" />
+		<property name="sessionAcknowledgeMode" value="4" />
+	</bean>
+
+</beans>
